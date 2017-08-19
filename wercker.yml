@@ -6,7 +6,7 @@ build-cli:
       name: Compile
       code: |
         cd cli
-        cargo build
+        cargo build --release
 
     - internal/watch:
       code: bash bin/tests-cli
@@ -17,6 +17,10 @@ build-cli:
       code: |
         bash bin/tests-cli
 
+    - script:
+      name: Prepare Artifacts
+      code: |
+        cp cli/target/release/yerun "${WERCKER_OUTPUT_DIR}"
 
 test-e2e:
   box: alpine:3.6
