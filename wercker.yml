@@ -1,14 +1,16 @@
-box: ubuntu
+box: alpine:3.6
+
 build:
   steps:
     - script:
       name: Install Bats
       code: |
-        apt-get update
-        apt-get install -y software-properties-common
-        add-apt-repository ppa:duggan/bats
-        apt-get update
-        apt-get install bats
+        apk update
+        apk add bats
+
+    - internal/watch:
+      code: bash bin/tests
+      reload: true
 
     - script:
       name: Run Tests
