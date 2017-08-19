@@ -5,6 +5,8 @@ build-cli:
     - script:
       name: Compile
       code: |
+        export CARGO_HOME="${WERCKER_CACHE_DIR}/.cargo"
+
         cd cli
         cargo build --release
 

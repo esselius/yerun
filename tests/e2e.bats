@@ -2,7 +2,7 @@
 
 @test "fails invoking missing subcommand" {
   run yerun does-not-exist
-  [[ "${status}" != 0 ]]
+  [[ "${status}" == 1 ]]
 }
 
 @test "prints help" {
