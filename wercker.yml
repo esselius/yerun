@@ -1,7 +1,16 @@
-box: debian
+box: ubuntu
 build:
   steps:
     - script:
-        name: echo
-        code: |
-          echo "hello world!"
+      name: Install Bats
+      code: |
+        apt-get update
+        apt-get install -y software-properties-common
+        add-apt-repository ppa:duggan/bats
+        apt-get update
+        apt-get install bats
+
+    - script:
+      name: Run Tests
+      code: |
+        bash bin/tests
