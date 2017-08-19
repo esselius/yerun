@@ -1,6 +1,20 @@
-box: alpine:3.6
+compile-cli:
+  box: jimmycuadra/rust:1.19.0
+
+  steps:
+    - script:
+      name: Compile
+      code: |
+        cd cli
+        cargo build
+
+    - internal/watch:
+      code: bash bin/tests-cli
+      reload: true
+
 
 build:
+  box: alpine:3.6
   steps:
     - script:
       name: Install Bats
@@ -9,10 +23,10 @@ build:
         apk add bats
 
     - internal/watch:
-      code: bash bin/tests
+      code: bash bin/tests-e2e
       reload: true
 
     - script:
       name: Run Tests
       code: |
-        bash bin/tests
+        bash bin/tests-e2e
