@@ -5,8 +5,8 @@
   [[ "${status}" == 1 ]]
 }
 
-@test "prints help" {
+@test "-h prints usage" {
   run yerun -h
   [[ "${status}" == 0 ]]
-  [[ "${output}" =~ "Help" ]]
+  [[ "${output}" =~ "USAGE" ]]
 }
