@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+[[ "${TRACE}" ]] && set -x
+set -eou pipefail
+shopt -s nullglob
+
+main() {
+  cd cli
+  cargo test
+}
+
+main "$@"

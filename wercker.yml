@@ -1,16 +1,45 @@
-box: ubuntu
-build:
+build-cli:
+  box: jimmycuadra/rust:1.19.0
+
   steps:
     - script:
-      name: Install Bats
+      name: Compile
       code: |
-        apt-get update
-        apt-get install -y software-properties-common
-        add-apt-repository ppa:duggan/bats
-        apt-get update
-        apt-get install bats
+        export CARGO_HOME="${WERCKER_CACHE_DIR}/.cargo"
+
+        cd cli
+        cargo build --release
+
+    - internal/watch:
+      code: bash bin/tests-cli
+      reload: true
 
     - script:
       name: Run Tests
       code: |
-        bash bin/tests
+        bash bin/tests-cli
+
+
+test-e2e:
+  box: alpine:3.6
+  steps:
+    - script:
+      name: Install Bats
+      code: |
+        apk update
+        apk add bats
+
+    - script:
+      name: Prepare Artifacts
+      code: |
+        cp cli/target/release/yerun /usr/bin/yerun
+
+    - internal/watch:
+      code: bash bin/tests-e2e
+      reload: true
+
+    - script:
+      name: Run Tests
+      code: |
+        echo $PATH
+        bash bin/tests-e2e

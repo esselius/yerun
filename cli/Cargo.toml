@@ -1,0 +1,7 @@
+[package]
+name = "yerun"
+version = "0.1.0"
+authors = ["Peter Esselius <pepp@me.com>"]
+
+[dependencies]
+clap = "2"
