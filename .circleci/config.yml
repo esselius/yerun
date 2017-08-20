@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: jimmycuadra/rust:1.19.0
+
+    working_directory: ~/yerun
+
+    steps:
+      - checkout
+
+      - run:
+          working_directory: cli
+          command: cargo build
