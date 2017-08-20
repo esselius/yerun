@@ -41,4 +41,5 @@ test-e2e:
     - script:
       name: Run Tests
       code: |
+        echo $PATH
         bash bin/tests-e2e
