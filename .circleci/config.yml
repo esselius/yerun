@@ -9,6 +9,18 @@ jobs:
     steps:
       - checkout
 
+      - restore_cache:
+          name: Restore cargo build cache
+          keys:
+            - cargo-{{ checksum "cli/Cargo.lock" }}
+
       - run:
           working_directory: cli
           command: cargo build
+
+      - save_cache:
+          name: Store cargo build cache
+          key: cargo-{{ checksum "cli/Cargo.lock" }}
+          paths:
+            - target
+            - ~/.cargo
